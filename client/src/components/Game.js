@@ -3,6 +3,7 @@ export default function Game(){
 
     return (
         <>
+        <h1>testing, testing</h1>
         <Player />
         </>
     )
