@@ -16,10 +16,10 @@ function App() {
             <Route path="/" exact>
               <HomePage />
             </Route>
-            <Route path="choosePlayer">
+            <Route path="/choosePlayer">
               <ChoosePlayer />
             </Route>
-            <Route path="Canvas">
+            <Route path="/game">
               <Game />
             </Route>
           </Switch>
