@@ -10,8 +10,14 @@ nav {
 }
 .logo{
     margin: 10px;
+    width: 100px;
+    height: 50px;
     background-image: url('../images/logo.jpg');
     background-size: contain;
+}
+.homepage-link{
+    width: 100px;
+    height: 50px;
 }
 
 .links{

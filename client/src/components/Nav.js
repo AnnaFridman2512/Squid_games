@@ -6,7 +6,9 @@ export default function Nav() {
     return (
       <nav>
         <div className="logo">
-          <Link to='/'>Homepage</Link>
+          <Link to='/'>
+            <div className="homepage-link"></div>
+            </Link>
         </div>
         <div className="links">
           <Link to="choosePlayer">
