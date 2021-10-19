@@ -4,7 +4,7 @@ import {BrowserRouter as Router,Switch, Route} from "react-router-dom";
 import Nav from './Nav.js';
 import HomePage from './HomePage.js';
 import ChoosePlayer from './ChoosePlayer.js';
-import Canvas from './Canvas.js';
+import Game from './Game.js';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
               <ChoosePlayer />
             </Route>
             <Route path="Canvas">
-              <Canvas />
+              <Game />
             </Route>
           </Switch>
       </Router>
