@@ -11,11 +11,11 @@ export default function Nav() {
             </Link>
         </div>
         <div className="links">
-          <Link to="choosePlayer">
-            Choose player
+          <Link to="players">
+            <span>Choose player</span>
           </Link>
           <Link to="Canvas">
-            Play
+            <span>Play</span>
           </Link>
         </div>
       </nav>

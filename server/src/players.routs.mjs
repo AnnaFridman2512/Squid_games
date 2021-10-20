@@ -1,11 +1,8 @@
 import express from 'express';
-import {getPlayers, getPlayer, deletePlayer, addPlayer} from './players.service.mjs';
+import {getPlayers, getPlayer} from './players.service.mjs';
 
 
 export const playersRouter = express.Router();
-
-//Add player 
-playersRouter.post('/', addPlayer);
 
 //Get all players
 playersRouter.get('/', async (req, res) => {
@@ -22,7 +19,3 @@ playersRouter.get('/:id', async (req, res) => {
     res.send(await getPlayer(req.params.id));
 })
 
-//Delete player
-playersRouter.delete('/:id', async (req, res) =>{
-    res.send(await deletePlayer(req.params.id));
-})

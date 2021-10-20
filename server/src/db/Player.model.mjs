@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 export const playerSchema = new mongoose.Schema({
-  name: {
-    type: Number,
+  number: {
+    type: String,
     required: true
   },
- score: {
-    type: Number
+ image: { //filePath
+    type: String
   }
 });
 

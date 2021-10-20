@@ -1,6 +1,6 @@
 .home-page{
     width: 100%;
-    height: 100vh; /*viewport height*/
+    height: 120vh; /*viewport height*/
     background-image: url("../images/background-img.jpg");
     background-position: center;
     background-repeat: no-repeat;

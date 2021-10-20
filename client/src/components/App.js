@@ -1,13 +1,22 @@
 import './App.css';
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {BrowserRouter as Router,Switch, Route} from "react-router-dom";
 import Nav from './Nav.js';
 import HomePage from './HomePage.js';
-import ChoosePlayer from './ChoosePlayer.js';
 import Game from './Game.js';
+import Players from './Players';
+import {PlayersContext} from './PlayersContext.js';
 
 
 function App() {
+
+  const {getPlayers} =useContext(PlayersContext);
+
+    useEffect(() => {
+        getPlayers();
+      }, [])
+
+    
   return (
     <div className="App">
       <Router>
@@ -16,8 +25,8 @@ function App() {
             <Route path="/" exact>
               <HomePage />
             </Route>
-            <Route path="/choosePlayer">
-              <ChoosePlayer />
+            <Route path="/players">
+              <Players />
             </Route>
             <Route path="/game">
               <Game />
