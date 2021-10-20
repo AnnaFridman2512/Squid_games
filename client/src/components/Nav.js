@@ -3,21 +3,23 @@ import { Link } from "react-router-dom";
 
 export default function Nav() {
 
-  return (
-    <nav>
-      <div className="logo">
-        <Link to='/'>
-          <div className="homepage-link"></div>
-        </Link>
-      </div>
-      <div className="links">
-        <Link to="choosePlayer">
-          Choose player
-        </Link>
-        <Link to="Game">
-          Play
-        </Link>
-      </div>
-    </nav>
-  );
-}
+    
+    return (
+      <nav>
+        <div className="logo">
+          <Link to='/'>
+            <div className="homepage-link"></div>
+            </Link>
+        </div>
+        <div className="links">
+          <Link to="players">
+            <span>Choose player</span>
+          </Link>
+          <Link to="Canvas">
+            <span>Play</span>
+          </Link>
+        </div>
+      </nav>
+    );
+  }
+
