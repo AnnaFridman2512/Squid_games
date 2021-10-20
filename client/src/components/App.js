@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from './Nav.js';
 import HomePage from './HomePage.js';
 import ChoosePlayer from './ChoosePlayer.js';
-import Game from './Game/Game.js';
+import Game from './Game/RedLightGreenLight.js';
 
 
 function App() {

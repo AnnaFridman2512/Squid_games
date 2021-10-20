@@ -16,7 +16,7 @@ export default function Game() {
         let npc = Npcs(ctx, data.npcObj)
         const render = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
-            npc.draw()
+
             npc.movement()
 
 
@@ -27,7 +27,7 @@ export default function Game() {
 
     }, [])
     return <div>
-        <h1>Welcome to the squidGame</h1>
+        <h1>Welcome to the Red Light Green Light</h1>
         <canvas ref={canvasRef}></canvas>
     </div>
 }
