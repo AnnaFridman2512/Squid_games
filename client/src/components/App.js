@@ -6,6 +6,7 @@ import HomePage from './HomePage.js';
 import Game from './Game.js';
 import Players from './Players';
 import {PlayersContext} from './PlayersContext.js';
+import RedLIghtGreenLight from './RedLIghtGreenLight/RedLightGreenLight';
 
 
 
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route path="/game">
               <Game />
+            </Route>
+            <Route path="/redLightGreenLight">
+              <RedLIghtGreenLight />
             </Route>
           </Switch>
       </Router>
