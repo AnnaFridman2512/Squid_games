@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import data from './data';
 import { Npcs } from './Npcs';
 
-export default function Game() {
+
+export default function RedLIghtGreenLight() {
     const canvasRef = useRef(null);
     useEffect(() => {
 
@@ -12,17 +13,43 @@ export default function Game() {
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight - 160
         canvas.style.backgroundColor = 'beige'
-        // starting to draw
-        let npc = Npcs(ctx, data.npcObj)
-        const render = () => {
+        // creating and drawing npcs
+        const npcArr = []
+        for (let i = 0; i < 20; i++) {
+            npcArr[i] = Npcs(ctx, data.npcObj)
+            data.npcObj.x += window.innerWidth / 22
+        }
+
+
+
+        let lastTime = 0
+
+        const render = (timestamp) => {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-            npc.movement()
+            let deltaTime = timestamp - lastTime;
+            lastTime = timestamp
+        
+            npcArr.forEach((npc => {
+                npc.timeSinceDirChange += deltaTime
+                if (npc.timeSinceDirChange > npc.dirChangeInt) {
+                    npc.dx *= -1
+                    npc.timeSinceDirChange = 0
+
+                }
+            }
+            
+            ))
+
+
+
+            npcArr.forEach((npc => npc.movement()))
+
 
 
             requestAnimationFrame(render)
         }
-        render()
+        render(0)
 
 
     }, [])
