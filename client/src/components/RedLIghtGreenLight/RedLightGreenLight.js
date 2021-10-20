@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import data from './data';
 import { Npcs } from './Npcs';
+import Light from './Light';
 
 
 export default function RedLIghtGreenLight() {
@@ -19,6 +20,7 @@ export default function RedLIghtGreenLight() {
             npcArr[i] = Npcs(ctx, data.npcObj)
             data.npcObj.x += window.innerWidth / 22
         }
+        let light = Light(ctx)
 
 
 
@@ -29,7 +31,7 @@ export default function RedLIghtGreenLight() {
 
             let deltaTime = timestamp - lastTime;
             lastTime = timestamp
-        
+
             npcArr.forEach((npc => {
                 npc.timeSinceDirChange += deltaTime
                 if (npc.timeSinceDirChange > npc.dirChangeInt) {
@@ -38,12 +40,13 @@ export default function RedLIghtGreenLight() {
 
                 }
             }
-            
+
             ))
 
 
 
             npcArr.forEach((npc => npc.movement()))
+            light.colorChange(Math.random() * 100 + 100)
 
 
 

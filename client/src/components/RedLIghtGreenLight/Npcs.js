@@ -4,8 +4,8 @@ export function Npcs(ctx, npcObj) {
     function Npc(x, y, dx, dy) {
         this.x = x
         this.y = y
-        this.dx = dx
-        this.dy = dy
+        this.dx = Math.random() * 0.5 + 1 || dx
+        this.dy = Math.random() * -0.5 - 3 || dy
         this.color = 'black'
         this.width = 25
         this.height = 25
@@ -13,10 +13,14 @@ export function Npcs(ctx, npcObj) {
         this.timeSinceDirChange = 0
 
         this.draw = function () {
-            // ctx.fillRect(this.x, this.y, this.width, this.height)
+
+            ctx.fillStyle = 'blue'
+            ctx.strokeStyle = 'red'
+            ctx.lineWidth = 10
             ctx.beginPath();
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
+            ctx.fill()
         }
 
         this.movement = () => {
@@ -26,7 +30,7 @@ export function Npcs(ctx, npcObj) {
             if (this.y + this.height > window.innerHeight - 160 || this.y < 0) {
                 this.dy = -this.dy
             }
-            
+
 
             this.x += this.dx
             this.y += this.dy
@@ -34,5 +38,5 @@ export function Npcs(ctx, npcObj) {
 
         }
     }
-    return new Npc(npcObj.x, npcObj.y, npcObj.dx, npcObj.dy)
+    return new Npc(npcObj.x, npcObj.y)
 }
