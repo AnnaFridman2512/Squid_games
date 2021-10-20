@@ -1,5 +1,5 @@
 import Player from "./Player";
-import RedLIghtGreenLight from "./RedLIghtGreenLight/RedLightGreenLight";
+
 
 
 export default function Game() {
