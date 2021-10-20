@@ -8,6 +8,7 @@ import Players from './Players';
 import {PlayersContext} from './PlayersContext.js';
 
 
+
 function App() {
 
   const {getPlayers} =useContext(PlayersContext);
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+
         <Nav /> 
           <Switch>
             <Route path="/" exact>
@@ -33,7 +35,7 @@ function App() {
             </Route>
           </Switch>
       </Router>
-    </div>  
+    </div>
   );
 }
 

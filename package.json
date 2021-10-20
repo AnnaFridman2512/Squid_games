@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/AnnaFridman2512/Squid_games/issues"
   },
-  "homepage": "https://github.com/AnnaFridman2512/Squid_games#readme"
+  "homepage": "https://github.com/AnnaFridman2512/Squid_games#readme",
+  "dependencies": {
+    "react-scripts": "^4.0.3"
+  }
 }
