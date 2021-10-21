@@ -11,7 +11,9 @@ export default function Players(){
     return (
         <div className="all-players">
           <div className="container">
-            {players.map(player => <Player key={player._id} {...player} />)}
+            <div className="container-inner">
+              {players.map(player => <Player key={player._id} {...player} />)}
+            </div>
           </div>
         </div>
     )

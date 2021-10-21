@@ -6,10 +6,12 @@ export default function Nav() {
 
   return (
     <nav>
-      <div className="logo">
-        <Link to='/'>
-          <div className="homepage-link"></div>
-        </Link>
+      <div className="logo-container">
+        <div className="logo">
+          <Link to='/'>
+            <div className="homepage-link"></div>
+          </Link>
+        </div>
       </div>
       <div className="links">
         <Link to="players">
@@ -18,6 +20,9 @@ export default function Nav() {
         <Link to="redLightGreenLight">
           <span>Play</span>
         </Link>
+        <Link to="Test">
+          <span>Test</span>
+        </Link>        
       </div>
     </nav>
   );

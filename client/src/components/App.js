@@ -31,7 +31,7 @@ function App() {
             <Route path="/players">
               <Players />
             </Route>
-            <Route path="/game">
+            <Route path="/Test">
               <Game />
             </Route>
             <Route path="/redLightGreenLight">

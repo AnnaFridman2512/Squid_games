@@ -13,6 +13,17 @@ nav {
     flex-wrap: nowrap;
 
 }
+.logo-container{
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container:hover{
+    background: rgba(4,29,33,0.5);
+}
+
 .logo{
     margin: 10px;
     width: 100px;
@@ -27,20 +38,25 @@ nav {
 
 .links{
     margin: 10px;
-    width:400px;
+    width:700px;
     display: flex;
     justify-content: space-evenly;
 }
 
-span{
-    padding: 5px;
+nav span{
+    margin-right: 10px;
+    padding: 0px 5px;
+    height: 70px;
+    width: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    
 }
-span:hover{
-    background: rgba(0, 0, 0, 0.6);
+nav span:hover{
+
+    background: rgba(4,29,33,0.5);
+   
 }
 
 .links a{
