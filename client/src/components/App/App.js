@@ -1,12 +1,12 @@
 import './App.css';
 import React, { useContext, useEffect } from "react";
 import {BrowserRouter as Router,Switch, Route} from "react-router-dom";
-import Nav from './Nav.js';
-import HomePage from './HomePage.js';
-import Game from './Game.js';
-import Players from './Players';
-import {PlayersContext} from './PlayersContext.js';
-import RedLIghtGreenLight from './RedLIghtGreenLight/RedLightGreenLight';
+import Nav from '../Nav/Nav.js';
+import HomePage from '../HomePage/HomePage.js';
+import Game from '../Game/Game.js';
+import Players from '../Players/Players.js';
+import {PlayersContext} from '../Player/PlayersContext.js';
+import RedLIghtGreenLight from '../RedLIghtGreenLight/RedLightGreenLight.js';
 
 
 

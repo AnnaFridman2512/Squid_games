@@ -1,7 +1,9 @@
+
 import React, { useEffect, useRef } from 'react'
 import data from './data';
 import { Npcs } from './Npcs';
 import Light from './Light';
+
 
 
 export default function RedLIghtGreenLight() {
@@ -12,7 +14,7 @@ export default function RedLIghtGreenLight() {
         const ctx = canvas.getContext('2d')
         // canvas styling
         canvas.width = window.innerWidth
-        canvas.height = window.innerHeight - 160
+        canvas.height = window.innerHeight - 130
         canvas.style.backgroundColor = 'beige'
         // creating and drawing npcs
         const npcArr = []

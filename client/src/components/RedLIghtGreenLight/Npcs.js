@@ -27,7 +27,7 @@ export function Npcs(ctx, npcObj) {
             if (this.x + this.width > window.innerWidth || this.x < 0) {
                 this.dx = -this.dx
             }
-            if (this.y + this.height > window.innerHeight - 160 || this.y < 0) {
+            if (this.y + this.height > window.innerHeight - 130 || this.y < 0) {
                 this.dy = -this.dy
             }
 

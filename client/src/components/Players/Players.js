@@ -1,7 +1,7 @@
 import './Players.css';
 import { useContext } from 'react';
-import {PlayersContext} from './PlayersContext.js';
-import Player from './Player.js';
+import {PlayersContext} from '../Player/PlayersContext.js';
+import Player from '../Player/Player.js';
 
 export default function Players(){
 

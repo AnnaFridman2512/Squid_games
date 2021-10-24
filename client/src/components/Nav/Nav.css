@@ -1,6 +1,6 @@
 @font-face {
     font-family: Azonix;
-    src: url('../fonts/Azonix.otf');
+    src: url('../../fonts/Azonix.otf');
   }
 
 nav {
@@ -28,7 +28,7 @@ nav {
     margin: 10px;
     width: 100px;
     height: 50px;
-    background-image: url('../images/logo.jpg');
+    background-image: url('../../images/logo.jpg');
     background-size: contain;
 }
 .homepage-link{

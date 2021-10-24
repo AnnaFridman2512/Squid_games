@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from '../src/components/App.js';
+import App from '../src/components/App/App.js';
 import reportWebVitals from './reportWebVitals';
-import PlayersProvider from '../src/components/PlayersContext.js';
+import PlayersProvider from '../src/components/Player/PlayersContext.js';
 
 ReactDOM.render(
   <React.StrictMode>
