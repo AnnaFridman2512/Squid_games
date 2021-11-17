@@ -1,32 +1,56 @@
 @font-face {
-    font-family: Azonix;
-    src: url('../../fonts/Azonix.otf');
-  }
+  font-family: Azonix;
+  src: url("../../fonts/Azonix.otf");
+}
 
-  *{
-    font-family: Azonix;
-  }
+* {
+  font-family: Azonix;
+}
 
-  .test-game{
-      width:100%;
-      height: 93vh;
-      background-image: url("../../images/field.jpg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
+.test-game {
+  width: 100%;
+  height: calc(100vh - 70px);
+  background-image: url("../../images/field.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow-x: hidden;
+  position: relative;
+}
 
-  }
+.playerInGame {
+  width: 50px;
+  height: 48px;
+  position: absolute;
+  top: calc(100% - 48px);
+  background-color: rgba(10, 100, 107);
+  color: white;
+  cursor: pointer;
+  line-height: 3;
+  box-sizing: border-box;
+}
+.currentPlayer {
+  transform: translateX(-50%);
+  left: 50%;
+  border: solid 2px red;
+}
+.eye {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+}
+.timer {
+  position: absolute;
+  font-size: 50px;
+  left: 0;
+  top: 0;
+}
 
-.playerInGame{
-    width:50px;
-    height: 20px;
-    margin: 0 auto;
-    position: relative;
-    top: 92%;
-    background-color: rgba(10,100,107);
-    color: white;
-} 
-.test{
+.test {
   color: red;
-  font-size: 200px;;
+  font-size: 200px;
 }

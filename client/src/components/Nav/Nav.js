@@ -1,22 +1,17 @@
-import './Nav.css';
+import "./Nav.css";
 import { Link } from "react-router-dom";
 
 export default function Nav() {
-
-
   return (
     <nav>
       <div className="logo-container">
         <div className="logo">
-          <Link to='/'>
+          <Link to="/">
             <div className="homepage-link"></div>
           </Link>
         </div>
       </div>
       <div className="links">
-      <Link to="doll">
-          <span>Doll</span>
-        </Link>
         <Link to="players">
           <span>Choose player</span>
         </Link>
@@ -25,9 +20,11 @@ export default function Nav() {
         </Link>
         <Link to="Test">
           <span>Test</span>
-        </Link>        
+        </Link>
+        <Link to="doll">
+          <span>Doll</span>
+        </Link>
       </div>
     </nav>
   );
 }
-

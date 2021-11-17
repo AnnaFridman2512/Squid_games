@@ -1,6 +1,5 @@
-import express from 'express';
-import {getPlayers, getPlayer} from './players.service.mjs';
-
+import express from "express";
+import { getPlayers, getPlayer } from "./players.service.mjs";
 
 export const playersRouter = express.Router();
 
