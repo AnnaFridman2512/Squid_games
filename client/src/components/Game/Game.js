@@ -18,22 +18,28 @@ export default function Game() {
     let yTand =  Math.ceil(Math.random() * -(window.screen.height ));
 
     const startGame = useCallback(
-        () => {
+        (e) => {
+
+         //Getting new x and y location
             setMoove(true);
+            let newX = e.clientX;
+            let newY = e.clientY;
+
             controls.start(i =>({
                 x: xRand,
                 y: yTand,
                 transition: {
                      delay: i * 5,
-                    duration: 15 },
-              }))
+                    duration: 20 },
+              })
+              )
         },[] );
 
     return (
         <div className="test-game" >
             <button>START GAME</button>
             <motion.div  className="playerInGame" onClick={startGame}  animate={controls}>
-                {moove ? playerNum : "works"} 
+                {playerNum} 
             </motion.div>
 
         </div>

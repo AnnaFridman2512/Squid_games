@@ -14,6 +14,9 @@ export default function Nav() {
         </div>
       </div>
       <div className="links">
+      <Link to="doll">
+          <span>Doll</span>
+        </Link>
         <Link to="players">
           <span>Choose player</span>
         </Link>
