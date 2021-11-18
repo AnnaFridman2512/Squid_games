@@ -9,7 +9,7 @@ function Model({ ...props }) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+        <group rotation={[Math.PI / 2, Math.PI / 3, 0]} scale={0.01}>
           <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
             <mesh
               geometry={
