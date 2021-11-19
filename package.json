@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/AnnaFridman2512/Squid_games#readme",
   "dependencies": {
-    "react-scripts": "^4.0.3"
+    "@react-three/drei": "^7.22.0",
+    "react-scripts": "^4.0.3",
+    "react-three": "^0.9.7"
   }
 }
