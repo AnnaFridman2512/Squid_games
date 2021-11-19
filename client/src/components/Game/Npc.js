@@ -2,19 +2,19 @@ import "./Game.css";
 import { animate, motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-let checkCollisionInterval;
 export default function Npc({
   index,
   number,
   key,
   gameIsOn,
   greenLight,
-  checkCollision,
+  reportNpcBoundries,
   checkHide,
   killNpc,
   npcsAmount,
   checkForCoveringNpcs,
   resetPosition,
+  image,
 }) {
   const controls = useAnimation();
   const npcRef = useRef(null);
@@ -25,13 +25,10 @@ export default function Npc({
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
-    if (greenLight) clearInterval(checkCollisionInterval);
-    else {
-      checkCollisionInterval = setInterval(() => {
-        checkCollision(npcRef?.current?.getBoundingClientRect());
-      }, 100);
-    }
-  }, [greenLight]);
+    setInterval(() => {
+      reportNpcBoundries(npcRef?.current?.getBoundingClientRect(), index);
+    }, 100);
+  }, []);
 
   useEffect(() => {}, [resetPosition]); //HELP
 

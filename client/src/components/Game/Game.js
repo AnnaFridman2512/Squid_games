@@ -11,7 +11,7 @@ const TOTAL_TIME = 60000;
 let greenLightInterval, timeRemainingInterval, gameOverInterval;
 
 const playAudio = () => {
-  document.querySelector("audio").play();
+  document.querySelector("audio")?.play();
 };
 
 //Anna testing how Player will run
@@ -32,7 +32,14 @@ export default function Game() {
   const [greenLight, setGreenLight] = useState(true);
   const [warning, setWarning] = useState(false);
 
-  const [Keys, setKeys] = useState([]);
+  //MOVEMENT
+  const [moveLeft, setMoveLeft] = useState(false);
+  const [moveRight, setMoveRight] = useState(false);
+  const [moveUp, setMoveUp] = useState(false);
+  const [moveDown, setMoveDown] = useState(false);
+  const [npcBounderiesArray, setNpcBoundriesArray] = useState(
+    Array(6).fill({})
+  );
 
   const [timeRemaining, setTimeRemaining] = useState(TOTAL_TIME / 1000);
   const [message, setMessage] = useState("");
@@ -81,18 +88,10 @@ export default function Game() {
 
   useEffect(() => {
     const movePlayerByKeyboard = (e) => {
-      if (e.keyCode === 37) setTranslateYPlayer((prev) => prev - 1);
-      if (e.keyCode === 39) setTranslateXPlayer((prev) => prev + 1);
-      if (e.keyCode === 38) setTranslateYPlayer((prev) => prev - 1);
-      if (e.keyCode === 40) setTranslateYPlayer((prev) => prev + 1);
-
-      if (
-        e.keyCode === 40 ||
-        e.keyCode === 39 ||
-        e.keyCode === 38 ||
-        e.keyCode === 37
-      )
-        setMoove(true);
+      if (e.keyCode === 37) setMoveLeft(true);
+      if (e.keyCode === 39) setMoveRight(true);
+      if (e.keyCode === 38) setMoveUp(true);
+      if (e.keyCode === 40) setMoveDown(true);
     };
     if (gameIsOn) {
       window.addEventListener("keydown", movePlayerByKeyboard);
@@ -102,9 +101,7 @@ export default function Game() {
 
     window.addEventListener("keyup", (e) => {
       e.preventDefault();
-      Keys[e.keyCode] = false;
-
-      setMoove(Keys.reduce((allKeysUp, key) => !key && allKeysUp, true));
+      setMoove(false);
     });
   }, [gameIsOn]);
 
@@ -122,6 +119,97 @@ export default function Game() {
       clearInterval(gameOverInterval);
     };
   }, []);
+
+  const checkIfCanMove = (direction) => {
+    let playerCanMove = true;
+    const playerBounderies = playerRef.current.getBoundingClientRect();
+    const playerMeetsNpcFromEastOrWestSide = (npcBounderies) =>
+      +Math.abs(playerBounderies.top - npcBounderies.top) <
+      npcBounderies.bottom - npcBounderies.top;
+
+    const playerMeetsNpcFromNorthOrSouthSide = (npcBounderies) =>
+      +Math.abs(playerBounderies.left - npcBounderies.left) <
+      npcBounderies.right - npcBounderies.left;
+
+    const isNpcNearPlayer = (npcBounderies) =>
+      playerMeetsNpcFromEastOrWestSide(npcBounderies) &&
+      playerMeetsNpcFromNorthOrSouthSide(npcBounderies);
+
+    if (direction === "left") {
+      npcBounderiesArray.forEach((npcBounderies, _) => {
+        if (
+          isNpcNearPlayer(npcBounderies) &&
+          playerBounderies.left <= npcBounderies.right &&
+          playerBounderies.right >= npcBounderies.left
+        ) {
+          playerCanMove = false;
+        }
+      });
+    }
+    if (direction === "right") {
+      npcBounderiesArray.forEach((npcBounderies) => {
+        if (
+          isNpcNearPlayer(npcBounderies) &&
+          playerBounderies.right >= npcBounderies.left &&
+          playerBounderies.left <= npcBounderies.right
+        )
+          playerCanMove = false;
+      });
+    }
+    if (direction === "up") {
+      npcBounderiesArray.forEach((npcBounderies) => {
+        if (
+          isNpcNearPlayer(npcBounderies) &&
+          playerBounderies.top <= npcBounderies.bottom &&
+          playerBounderies.bottom >= npcBounderies.top
+        )
+          playerCanMove = false;
+      });
+    }
+    if (direction === "down") {
+      npcBounderiesArray.forEach((npcBounderies) => {
+        if (
+          isNpcNearPlayer(npcBounderies) &&
+          playerBounderies.bottom >= npcBounderies.top &&
+          playerBounderies.top <= npcBounderies.bottom
+        )
+          playerCanMove = false;
+      });
+    }
+    return playerCanMove;
+  };
+
+  useEffect(() => {
+    moveLeft &&
+      checkIfCanMove("left") &&
+      (() => {
+        setTranslateXPlayer((prev) => prev - 1);
+        setMoove(true);
+      })();
+
+    moveRight &&
+      checkIfCanMove("right") &&
+      (() => {
+        setTranslateXPlayer((prev) => prev + 1);
+        setMoove(true);
+      })();
+    moveUp &&
+      checkIfCanMove("up") &&
+      (() => {
+        setTranslateYPlayer((prev) => prev - 1);
+        setMoove(true);
+      })();
+    moveDown &&
+      checkIfCanMove("down") &&
+      (() => {
+        setTranslateYPlayer((prev) => prev + 1);
+        setMoove(true);
+      })();
+    setMoveLeft(false);
+    setMoveRight(false);
+    setMoveUp(false);
+    setMoveDown(false);
+  }, [moveLeft, moveRight, moveUp, moveDown, moove]);
 
   const startGame = () => {
     setMoove(false);
@@ -163,20 +251,15 @@ export default function Game() {
   //NPC FUNCATIONALLITY
   const killNpc = (npcNumber) => {};
 
-  const checkCollision = (npcBounderies) => {
+  const reportNpcBoundries = (npcBounderies, npcIndex) => {
     if (!npcBounderies) return;
-    const playerBounderies = playerRef.current.getBoundingClientRect();
-    const playerMeetsNpcFromLeftOrRight =
-      +Math.abs(playerBounderies.top - npcBounderies.top) <
-      npcBounderies.height;
-    const playerMeetsNpcFromTopOrBottom =
-      +Math.abs(playerBounderies.left - npcBounderies.left) <
-      npcBounderies.width;
 
-    //  if(playerMeetsNpcFromTopOrBottom && playerMeetsNpcFromLeftOrRight && playerBounderies.top>npcBounderies.top) return setPreventUp(true);
-    //   if(playerMeetsNpcFromTopOrBottom && playerMeetsNpcFromLeftOrRight && playerBounderies.top<npcBounderies.top) return setPreventDown(true);
-    //   if(playerMeetsNpcFromTopOrBottom && playerMeetsNpcFromLeftOrRight && playerBounderies.left<npcBounderies.left)return setPreventRight(true);
-    //   if(playerMeetsNpcFromTopOrBottom && playerMeetsNpcFromLeftOrRight && playerBounderies.left>npcBounderies.left)return setPreventLeft(true);
+    setNpcBoundriesArray((prev) =>
+      prev.map((boundries, index) => {
+        if (index === npcIndex) return npcBounderies;
+        return boundries;
+      })
+    );
   };
 
   const checkHide = (npcBounderies) => {
@@ -201,45 +284,49 @@ export default function Game() {
   };
 
   return (
-    <div className="test-game">
+    <div className="wrapper">
       <button id="startGame" onClick={startGame}>
         START GAME
       </button>
-      <Doll />
+      <Doll greenLight={greenLight} />
 
-      <div className="timer">{message || timeRemaining}</div>
+      <div className="test-game">
+        <div className="timer">{message || timeRemaining}</div>
 
-      {players
-        .filter((player) => player.number !== playerNum)
-        .map((player, index) => {
-          return (
-            <Npc
-              index={index}
-              gameIsOn={gameIsOn}
-              checkCollision={checkCollision}
-              checkHide={checkHide}
-              checkForCoveringNpcs={checkForCoveringNpcs}
-              killNpc={killNpc}
-              greenLight={greenLight}
-              key={player._id}
-              npcsAmount={players.length - 1}
-              number={player.number}
-              resetPosition={resetPosition}
-            />
-          );
-        })}
+        {players
+          .filter((player) => player.number !== playerNum)
+          .map((player, index) => {
+            return (
+              <Npc
+                index={index}
+                gameIsOn={gameIsOn}
+                reportNpcBoundries={reportNpcBoundries}
+                checkHide={checkHide}
+                checkForCoveringNpcs={checkForCoveringNpcs}
+                killNpc={killNpc}
+                greenLight={greenLight}
+                key={player._id}
+                npcsAmount={players.length - 1}
+                number={player.number}
+                image={player.image}
+                resetPosition={resetPosition}
+              />
+            );
+          })}
 
-      <motion.div
-        className="playerInGame currentPlayer"
-        style={{
-          transform: `translate(${translateXPlayer}px,${translateYPlayer}px)`,
-        }}
-        ref={playerRef}
-        key={playerNum}
-      >
-        {playerNum}
-      </motion.div>
-      <audio src={soundEffect} ref={soundEffectRef} />
+        <motion.div
+          className="playerInGame currentPlayer"
+          style={{
+            transform: `translate(${translateXPlayer}px,${translateYPlayer}px)`,
+          }}
+          ref={playerRef}
+          key={playerNum}
+          onClick={startGame}
+        >
+          {playerNum}
+        </motion.div>
+        <audio src={soundEffect} ref={soundEffectRef} />
+      </div>
     </div>
   );
 }
@@ -248,4 +335,53 @@ export default function Game() {
   const [randPosY, setRandPosY] = useState(0);
   let xRand = Math.floor(Math.random() * window.innerWidth);
   let yTand = Math.ceil(Math.random() * -window.screen.height);
-*/
+
+
+
+
+
+
+
+
+
+   /* const playerBounderies = playerRef.current.getBoundingClientRect();
+    const playerMeetsNpcFromEastOrWestSide =
+      +Math.abs(playerBounderies.top - npcBounderies.top) <
+      npcBounderies.bottom - npcBounderies.top;
+    const playerMeetsNpcFromNorthOrSouthSide =
+      +Math.abs(playerBounderies.left - npcBounderies.left) <
+      npcBounderies.right - npcBounderies.left;
+
+    if (
+      playerMeetsNpcFromNorthOrSouthSide &&
+      playerMeetsNpcFromEastOrWestSide &&
+      playerBounderies.right >= npcBounderies.left &&
+      playerBounderies.bottom >= npcBounderies.top &&
+      playerBounderies.top <= npcBounderies.bottom
+    ) {
+      setAllowRight(false);
+    }
+    if (
+      playerMeetsNpcFromNorthOrSouthSide &&
+      playerMeetsNpcFromEastOrWestSide &&
+      playerBounderies.bottom >= npcBounderies.top &&
+      playerBounderies.top <= npcBounderies.bottom
+    )
+      setAllowLeft(false);
+    if (
+      playerMeetsNpcFromNorthOrSouthSide &&
+      playerMeetsNpcFromEastOrWestSide &&
+      playerBounderies.top <= npcBounderies.bottom &&
+      playerBounderies.right >= npcBounderies.left &&
+      playerBounderies.left <= npcBounderies.right
+    )
+      setAllowUp(false);
+    if (
+      playerMeetsNpcFromNorthOrSouthSide &&
+      playerMeetsNpcFromEastOrWestSide &&
+      playerBounderies.bottom >= npcBounderies.top &&
+      playerBounderies.right >= npcBounderies.left &&
+      playerBounderies.left <= npcBounderies.right
+    ) {
+      setAllowDown(false);
+    }*/

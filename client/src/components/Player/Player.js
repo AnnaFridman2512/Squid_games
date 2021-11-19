@@ -7,7 +7,11 @@ export default function Player({ _id, number, image }) {
 
   return (
     <div className="player">
-      <img src={`api/${image}`} className="player-image" alt="player-img" />
+      <img
+        src={`api/players/${image}`}
+        className="player-image"
+        alt="player-img"
+      />
       <div className="choose-player">
         <p className="player-number">Player {number}</p>
         {

@@ -1,15 +1,39 @@
 import "./Doll.css";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
 
 function Model({ ...props }) {
   const group = useRef();
   const { nodes } = useGLTF("doll.glb");
+
+  const [rotationArray, setRotationArray] = useState([
+    Math.PI / 3,
+    0,
+    -Math.PI,
+  ]);
+
+  useEffect(() => {
+    let frameCounter = 0;
+    const totalFrames = 20;
+
+    const interval = setInterval(() => {
+      if (frameCounter >= totalFrames) clearInterval(interval);
+      setRotationArray([
+        Math.PI / 3,
+        !props.greenLight
+          ? -(frameCounter * Math.PI) / totalFrames
+          : -Math.PI + (frameCounter * Math.PI) / totalFrames,
+        -Math.PI,
+      ]);
+      frameCounter++;
+    }, 16);
+  }, [props.greenLight]);
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI, 0, 0]}>
-        <group rotation={[Math.PI / 2, Math.PI / 3, 0]} scale={0.01}>
+        <group rotation={rotationArray} scale={0.01}>
           <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
             <mesh
               geometry={
@@ -88,13 +112,17 @@ function Model({ ...props }) {
   );
 }
 
-export default function Doll() {
+export default function Doll({ greenLight }) {
   const [redLight, setRedLight] = useState(false);
 
   const style = {
-    height: "35vh",
-    position: "relative",
-    top: "20px",
+    height: "40vh",
+    transform: "translateX(7%) rotateY(45deg) scale(1.2,1)",
+    transformStyle: "preserve-3d",
+    position: "absolute",
+    top: "7%",
+    left: "0",
+    zIndex: "1",
   };
 
   return (
@@ -102,8 +130,7 @@ export default function Doll() {
       <Canvas style={style}>
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
-          <OrbitControls />
-          <Model scale={0.3} />
+          <Model scale={0.25} greenLight={greenLight} />
         </Suspense>
       </Canvas>
     </div>

@@ -19,7 +19,6 @@ export default function PlayersProvider({ children }) {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setPlayers(data);
       });
   }, []);

@@ -21,9 +21,6 @@ export default function Nav() {
         <Link to="Test">
           <span>Test</span>
         </Link>
-        <Link to="doll">
-          <span>Doll</span>
-        </Link>
       </div>
     </nav>
   );
