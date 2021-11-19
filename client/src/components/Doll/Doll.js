@@ -1,17 +1,26 @@
 import './Doll.css';
-import React, {Suspense, useRef, useState} from 'react';
+import React, {Suspense, useRef, useState, useEffect} from 'react';
 import { Canvas  } from '@react-three/fiber';
 import {useGLTF, OrbitControls} from '@react-three/drei';
-
+import { gsap, Power3} from 'gsap';
 
 
 
 function Model({ ...props }) {
-  const group = useRef()
+  const group = useRef(null)
+  const [turn, setTurn] = useState([-Math.PI / 2, 0, -3.15]);
+  const [scaleDoll, setScaleDoll] = useState(0.3);
   const { nodes } = useGLTF('doll.glb')
+  // const lookBack = () => setTurn([-Math.PI / 2, 0, -3.15]);
+ const lookFront= () => setTurn([-Math.PI / 2.2, 0, 0]);
+
+
+
+
+
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
+      <group rotation={turn} scale={scaleDoll}  onClick={lookFront}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
           <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
             <mesh
@@ -65,21 +74,17 @@ function Model({ ...props }) {
 export default function Doll() {
   const [redLight, setRedLight] = useState(false);
   
-  const style= {
-    height: "20vh",
-    position: "relative",
-    top: "20px"
-}
+
 
 
   return (
 
     <div class="doll">
-      <Canvas style={style}>
+      <Canvas style={{height: "20vh"}}>
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
             <OrbitControls />
-            <Model scale={0.4}/>
+            <Model />
         </Suspense>
       </Canvas>
     </div>
