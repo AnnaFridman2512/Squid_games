@@ -139,8 +139,7 @@ export default function Game() {
       npcBounderiesArray.forEach((npcBounderies, _) => {
         if (
           isNpcNearPlayer(npcBounderies) &&
-          playerBounderies.left <= npcBounderies.right &&
-          playerBounderies.right >= npcBounderies.left
+          playerBounderies.left > npcBounderies.left
         ) {
           playerCanMove = false;
         }
@@ -150,8 +149,7 @@ export default function Game() {
       npcBounderiesArray.forEach((npcBounderies) => {
         if (
           isNpcNearPlayer(npcBounderies) &&
-          playerBounderies.right >= npcBounderies.left &&
-          playerBounderies.left <= npcBounderies.right
+          playerBounderies.right < npcBounderies.right
         )
           playerCanMove = false;
       });
@@ -160,8 +158,7 @@ export default function Game() {
       npcBounderiesArray.forEach((npcBounderies) => {
         if (
           isNpcNearPlayer(npcBounderies) &&
-          playerBounderies.top <= npcBounderies.bottom &&
-          playerBounderies.bottom >= npcBounderies.top
+          playerBounderies.top < npcBounderies.bottom
         )
           playerCanMove = false;
       });
@@ -170,8 +167,7 @@ export default function Game() {
       npcBounderiesArray.forEach((npcBounderies) => {
         if (
           isNpcNearPlayer(npcBounderies) &&
-          playerBounderies.bottom >= npcBounderies.top &&
-          playerBounderies.top <= npcBounderies.bottom
+          playerBounderies.top < npcBounderies.top
         )
           playerCanMove = false;
       });
