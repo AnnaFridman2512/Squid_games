@@ -14,6 +14,9 @@ const playAudio = () => {
   document.querySelector("audio")?.play();
 };
 
+const pauseAudio = () => {
+  document.querySelector("audio")?.pause();
+};
 
 export default function Game() {
   const { playerNum, players } = useContext(PlayersContext);
@@ -44,39 +47,36 @@ export default function Game() {
   const [timeRemaining, setTimeRemaining] = useState(TOTAL_TIME / 1000);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const playGreenLightSound = () => {
-      let i = 0;
-      playAudio();
-      const playInterval = setInterval(() => {
-        if (i++ % 2 === 1) {
-          playAudio();
-        }
-        if (i > TOTAL_TIME / CHANGE_TIME) clearInterval(playInterval);
-      }, CHANGE_TIME);
-    };
-    document
-      .getElementById("startGame")
-      .addEventListener("click", playGreenLightSound);
-  }, []);
-
-  useEffect(() => {
-    //check for win
-    if (gameIsOn) {
-      if (translateYPlayer <= -(window.innerHeight * 0.93 - 150)) {
-        setMessage("🏆 WIN");
-        setGameIsOn(false);
+  //PLAYING AND PAUSING SOUND
+  const playGreenLightSound = () => {
+    let i = 0;
+    playAudio();
+    const playInterval = setInterval(() => {
+      if (i++ % 2 === 1) {
+        playAudio();
+      } else {
+        pauseAudio();
       }
-    }
-  }, [translateXPlayer, translateYPlayer, gameIsOn]);
+      if (i > TOTAL_TIME / CHANGE_TIME) clearInterval(playInterval);
+    }, CHANGE_TIME);
+  };
 
+  //CHECK WIN
+  useEffect(() => {
+    if (translateYPlayer <= -(window.innerHeight * 0.93 - 150)) {
+      setMessage("🏆 WIN");
+      setGameIsOn(false);
+    }
+  }, [translateYPlayer]);
+
+  //RESET POSITION
   useEffect(() => {
     setTranslateXPlayer(0);
     setTranslateYPlayer(0);
   }, [resetPosition]);
 
+  //CEHCK FOR GAMEOVER
   useEffect(() => {
-    //Fail check
     if (timeRemaining === 0 && gameIsOn) {
       return gameOver();
     }
@@ -86,6 +86,7 @@ export default function Game() {
     }
   }, [greenLight, timeRemaining, moove, gameIsOn]);
 
+  //MOVE PLAYER BY KEYBOARD
   useEffect(() => {
     const movePlayerByKeyboard = (e) => {
       if (e.keyCode === 37) setMoveLeft(true);
@@ -105,6 +106,7 @@ export default function Game() {
     });
   }, [gameIsOn]);
 
+  //HANDLE COVERING NPCS
   useEffect(() => {
     if (coveringNpcs > 0) clearInterval(gameOverInterval);
     if (gameIsOn && moove && !greenLight && coveringNpcs === 0) {
@@ -112,6 +114,7 @@ export default function Game() {
     }
   }, [coveringNpcs, gameIsOn, moove, greenLight]);
 
+  //CLEAR INTERVALS - CLEANUP
   useEffect(() => {
     return () => {
       clearInterval(timeRemainingInterval);
@@ -120,6 +123,7 @@ export default function Game() {
     };
   }, []);
 
+  //CHECK IF CAN MOVE
   const checkIfCanMove = (direction) => {
     let playerCanMove = true;
     const playerBounderies = playerRef.current.getBoundingClientRect();
@@ -175,6 +179,7 @@ export default function Game() {
     return playerCanMove;
   };
 
+  //HANDLE PLAYER MOVEMENT
   useEffect(() => {
     moveLeft &&
       checkIfCanMove("left") &&
@@ -208,6 +213,7 @@ export default function Game() {
   }, [moveLeft, moveRight, moveUp, moveDown, moove]);
 
   const startGame = () => {
+    playGreenLightSound();
     setMoove(false);
     setCheckForCoveringNpcs(false);
     setCoveringNpcs(0);
@@ -232,12 +238,11 @@ export default function Game() {
     setWarning(false);
     greenLightInterval = setInterval(() => {
       if (greenLight) {
-        //Goes red
+        setWarning(true);
         setTimeout(() => {
           setGreenLight((prev) => !prev);
-          setWarning((prev) => !prev);
+          setWarning(false);
         }, 333);
-        setWarning((prev) => !prev);
       } else {
         setGreenLight((prev) => !prev);
       }
@@ -247,9 +252,9 @@ export default function Game() {
   //NPC FUNCATIONALLITY
   const killNpc = (npcNumber) => {};
 
+  //
   const reportNpcBoundries = (npcBounderies, npcIndex) => {
     if (!npcBounderies) return;
-
     setNpcBoundriesArray((prev) =>
       prev.map((boundries, index) => {
         if (index === npcIndex) return npcBounderies;
@@ -280,15 +285,17 @@ export default function Game() {
   };
 
   return (
-    <div className="wrapper">
+    <div
+      className="wrapper"
+      //style={{ background: `url("/api/photos/meadow.jpg")` }}
+    >
       <div className="game-top">
-      <div className="timer">{message || timeRemaining}</div>
-      <button id="startGame" onClick={startGame}>
-        START GAME
-      </button>
- 
+        <div className="timer">{message || timeRemaining}</div>
+        <button id="startGame" onClick={startGame}>
+          START GAME
+        </button>
       </div>
-      
+
       <Doll greenLight={greenLight} />
       <div className="field">
         {players
@@ -328,58 +335,3 @@ export default function Game() {
     </div>
   );
 }
-/*
-  const [randPosX, setRandPosX] = useState(0);
-  const [randPosY, setRandPosY] = useState(0);
-  let xRand = Math.floor(Math.random() * window.innerWidth);
-  let yTand = Math.ceil(Math.random() * -window.screen.height);
-
-
-
-
-
-
-
-
-
-   /* const playerBounderies = playerRef.current.getBoundingClientRect();
-    const playerMeetsNpcFromEastOrWestSide =
-      +Math.abs(playerBounderies.top - npcBounderies.top) <
-      npcBounderies.bottom - npcBounderies.top;
-    const playerMeetsNpcFromNorthOrSouthSide =
-      +Math.abs(playerBounderies.left - npcBounderies.left) <
-      npcBounderies.right - npcBounderies.left;
-
-    if (
-      playerMeetsNpcFromNorthOrSouthSide &&
-      playerMeetsNpcFromEastOrWestSide &&
-      playerBounderies.right >= npcBounderies.left &&
-      playerBounderies.bottom >= npcBounderies.top &&
-      playerBounderies.top <= npcBounderies.bottom
-    ) {
-      setAllowRight(false);
-    }
-    if (
-      playerMeetsNpcFromNorthOrSouthSide &&
-      playerMeetsNpcFromEastOrWestSide &&
-      playerBounderies.bottom >= npcBounderies.top &&
-      playerBounderies.top <= npcBounderies.bottom
-    )
-      setAllowLeft(false);
-    if (
-      playerMeetsNpcFromNorthOrSouthSide &&
-      playerMeetsNpcFromEastOrWestSide &&
-      playerBounderies.top <= npcBounderies.bottom &&
-      playerBounderies.right >= npcBounderies.left &&
-      playerBounderies.left <= npcBounderies.right
-    )
-      setAllowUp(false);
-    if (
-      playerMeetsNpcFromNorthOrSouthSide &&
-      playerMeetsNpcFromEastOrWestSide &&
-      playerBounderies.bottom >= npcBounderies.top &&
-      playerBounderies.right >= npcBounderies.left &&
-      playerBounderies.left <= npcBounderies.right
-    ) {
-      setAllowDown(false);
-    }*/

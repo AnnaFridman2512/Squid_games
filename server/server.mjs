@@ -15,7 +15,11 @@ app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.use(cors());
 
 app.use("/api/players", express.static(path.join(__dirname, "players"))); //adding path to use at client side to fetch pics
+
 app.use(express.static('../client/build'));
+
+app.use("/api/photos", express.static(path.join(__dirname, "photos"))); //adding path to use at client side to fetch pics
+
 app.use("/api/players", playersRouter);
 
 const port = process.env.PORT || 8080; //listening to heroku port Or 8080 default

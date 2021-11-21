@@ -124,8 +124,8 @@ export default function Doll({ greenLight }) {
     transform: "translateX(15%) rotateY(45deg) scale(1.2,1)",
     transformStyle: "preserve-3d",
     position: "absolute",
-     top: "5%",
-     zIndex: "1",
+    top: "5%",
+    zIndex: "1",
   };
 
   return (
