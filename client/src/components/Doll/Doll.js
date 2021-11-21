@@ -116,21 +116,22 @@ export default function Doll({ greenLight }) {
   const [redLight, setRedLight] = useState(false);
 
   const style = {
-    height: "40vh",
+
+    width: "100%",
+    height: "20vh",
     transform: "translateX(7%) rotateY(45deg) scale(1.2,1)",
     transformStyle: "preserve-3d",
     position: "absolute",
-    top: "7%",
-    left: "0",
-    zIndex: "1",
+     top: "5%",
+     zIndex: "1",
   };
 
   return (
     <div class="doll">
-      <Canvas style={{height: "20vh"}}>
+      <Canvas style={style}>
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
-          <Model scale={0.25} greenLight={greenLight} />
+          <Model scale={0.31} greenLight={greenLight} />
         </Suspense>
       </Canvas>
     </div>

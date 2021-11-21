@@ -9,6 +9,7 @@
 .wrapper {
   width: 100vw;
   height: calc(100vh - 70px);
+
   background: rgb(240, 240, 240);
   background-repeat: no-repeat;
   background-position: center;
@@ -16,9 +17,17 @@
   overflow: hidden;
   position: relative;
 }
-.test-game {
+
+.game-top{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.field {
   transform: perspective(1500px) rotateX(45deg);
-  width: 80%;
+  width: 80vw;
+  height: 150vh;
   left: 10%;
   top: -5%;
   height: calc(100vh - 70px);
@@ -30,12 +39,13 @@
   position: relative;
 }
 #startGame {
+ width: 20%;
+ align-self: flex-end;
 }
 .playerInGame {
   width: 50px;
   height: 48px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-
   position: absolute;
   top: calc(100% - 48px);
   background-color: rgba(10, 100, 107);
@@ -53,6 +63,7 @@
   left: 50%;
   border: solid 2px red;
 }
+
 .eye {
   position: relative;
   width: 50px;
@@ -63,7 +74,7 @@
   background-color: #333;
 }
 .timer {
-  position: absolute;
+
   font-size: 50px;
   left: 0;
   top: 0;

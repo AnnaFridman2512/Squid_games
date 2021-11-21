@@ -14,7 +14,7 @@ const playAudio = () => {
   document.querySelector("audio")?.play();
 };
 
-//Anna testing how Player will run
+
 export default function Game() {
   const { playerNum, players } = useContext(PlayersContext);
   const playerRef = useRef(null);
@@ -281,14 +281,16 @@ export default function Game() {
 
   return (
     <div className="wrapper">
+      <div className="game-top">
+      <div className="timer">{message || timeRemaining}</div>
       <button id="startGame" onClick={startGame}>
         START GAME
       </button>
+ 
+      </div>
+      
       <Doll greenLight={greenLight} />
-
-      <div className="test-game">
-        <div className="timer">{message || timeRemaining}</div>
-
+      <div className="field">
         {players
           .filter((player) => player.number !== playerNum)
           .map((player, index) => {
