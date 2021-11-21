@@ -117,9 +117,11 @@ export default function Doll({ greenLight }) {
 
   const style = {
 
-    width: "100%",
+    width: "80%",
     height: "20vh",
-    transform: "translateX(7%) rotateY(45deg) scale(1.2,1)",
+    display: "flex",
+    justifyContent: "center",
+    transform: "translateX(15%) rotateY(45deg) scale(1.2,1)",
     transformStyle: "preserve-3d",
     position: "absolute",
      top: "5%",

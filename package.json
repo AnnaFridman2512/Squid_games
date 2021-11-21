@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-client": "cd react-app && npm i",
+    "install-server": "cd server && npm i",
+    "postinstall": "concurrently 'npm:install-client' 'npm:install-server'",
+    "build": "cd client && npm run build",
+    "start-server": "cd server && npm start",
+    "start-client": "cd client && npm start",
+    "start": "concurrently 'npm:start-server' 'npm:start-client'",
+    "start:prod": "cd server && npm run start:prod"
   },
   "repository": {
     "type": "git",
@@ -18,6 +25,7 @@
   "homepage": "https://github.com/AnnaFridman2512/Squid_games#readme",
   "dependencies": {
     "@react-three/drei": "^7.22.0",
+    "concurrently": "^6.4.0",
     "react-scripts": "^4.0.3",
     "react-three": "^0.9.7"
   }
