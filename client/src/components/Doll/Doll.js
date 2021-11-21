@@ -1,7 +1,7 @@
 import "./Doll.css";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 
 function Model({ ...props }) {
   const group = useRef();
@@ -116,12 +116,12 @@ export default function Doll({ greenLight }) {
   const [redLight, setRedLight] = useState(false);
 
   const style = {
-    height: "40vh",
-    transform: "translateX(7%) rotateY(45deg) scale(1.2,1)",
+    width: "100%",
+    height: "20vh",
+    transform: "translate(7%,30%)  rotateY(45deg) scale(1.2,1)",
     transformStyle: "preserve-3d",
     position: "absolute",
-    top: "7%",
-    left: "0",
+    top: "5%",
     zIndex: "1",
   };
 
@@ -130,7 +130,7 @@ export default function Doll({ greenLight }) {
       <Canvas style={style}>
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
-          <Model scale={0.25} greenLight={greenLight} />
+          <Model scale={0.31} greenLight={greenLight} />
         </Suspense>
       </Canvas>
     </div>

@@ -5,9 +5,7 @@ import Nav from "../Nav/Nav.js";
 import HomePage from "../HomePage/HomePage.js";
 import Game from "../Game/Game.js";
 import Players from "../Players/Players.js";
-import Doll from "../Doll/Doll.js";
 import { PlayersContext } from "../Player/PlayersContext.js";
-import RedLIghtGreenLight from "../RedLIghtGreenLight/RedLightGreenLight.js";
 
 function App() {
   const { getPlayers } = useContext(PlayersContext);
@@ -24,17 +22,11 @@ function App() {
           <Route path="/" exact>
             <HomePage />
           </Route>
-          <Route path="/doll">
-            <Doll />
-          </Route>
-          <Route path="/players">
+          <Route path="/players" exact>
             <Players />
           </Route>
-          <Route path="/Test">
+          <Route path="/game">
             <Game />
-          </Route>
-          <Route path="/redLightGreenLight">
-            <RedLIghtGreenLight />
           </Route>
         </Switch>
       </Router>
