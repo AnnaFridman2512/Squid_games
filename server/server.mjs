@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json()); //Used to parse JSON bodies
 app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.use(cors());
-app.get("*",(req,res)=> res.sendFile("...index.html"))
+app.get("*",(req,res)=> res.sendFile('../client/build/index.html'))
 
 app.use("/api/players", express.static(path.join(__dirname, "players"))); //adding path to use at client side to fetch pics
 app.use("/api/photos", express.static(path.join(__dirname, "photos"))); //adding path to use at client side to fetch pics
