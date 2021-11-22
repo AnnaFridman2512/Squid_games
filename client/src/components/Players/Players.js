@@ -12,7 +12,9 @@ export default function Players(){
         <div className="all-players">
           <div className="container">
             <div className="container-inner">
-              {players.map(player => <Player key={player._id} {...player} />)}
+              {players.length > 0
+               ? players.map(player => <Player key={player._id} {...player} />)
+              : "LOADING "}
             </div>
           </div>
         </div>
