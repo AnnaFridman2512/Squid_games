@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": " node server/server ",
-    "start": "node server/server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false  NODE_ENV=production npm install --prefix client && npm run build --prefix client"
+    "install-client": "cd react-app && npm i",
+    "install-server": "cd server && npm i",
+    "postinstall": "concurrently 'npm:install-client' 'npm:install-server'",
+    "build": "cd react-app && npm run build",
+    "start-server": "cd server && npm start",
+    "start-client": "cd react-app && npm start",
+    "start": "concurrently 'npm:start-server' 'npm:start-client'",
+    "start:prod": "cd server && npm run start:prod"
   },
   "repository": {
     "type": "git",
