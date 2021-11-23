@@ -14,7 +14,7 @@ export default function PlayersProvider({ children }) {
   const [players, setPlayers] = useState([]);
 
   const getPlayers = useCallback(() => {
-    fetch("https://red-light--green-light.herokuapp.com/players")
+    fetch("/api/players")
       .then((res) => {
         return res.json();
       })
