@@ -1,7 +1,7 @@
 import "./Game.css";
 import soundEffect from "./soundEffect.mp3";
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { PlayersContext } from "../Player/PlayersContext.js";
+import { PlayersContext } from "../Players/PlayersContext.js";
 import { motion } from "framer-motion";
 import Doll from "./../Doll/Doll";
 import Npc from "./Npc";
@@ -33,7 +33,7 @@ export default function Game() {
   const [resetPosition, setResetPosition] = useState(false);
 
   const [greenLight, setGreenLight] = useState(true);
-  const [warning, setWarning] = useState(false);
+
 
   //MOVEMENT
   const [moveLeft, setMoveLeft] = useState(false);
@@ -218,7 +218,7 @@ export default function Game() {
     setCheckForCoveringNpcs(false);
     setCoveringNpcs(0);
     setGreenLight(true);
-    setWarning(false);
+
     setMessage("");
     setResetPosition((prev) => !prev);
     setGameIsOn(true);
@@ -235,13 +235,13 @@ export default function Game() {
 
   const startGreenLightRedLight = () => {
     setGreenLight(true);
-    setWarning(false);
+
     greenLightInterval = setInterval(() => {
       if (greenLight) {
-        setWarning(true);
+
         setTimeout(() => {
           setGreenLight((prev) => !prev);
-          setWarning(false);
+
         }, 333);
       } else {
         setGreenLight((prev) => !prev);
@@ -311,7 +311,6 @@ export default function Game() {
                 killNpc={killNpc}
                 greenLight={greenLight}
                 key={player._id}
-                npcsAmount={players.length - 1}
                 number={player.number}
                 image={player.image}
                 resetPosition={resetPosition}
@@ -320,7 +319,7 @@ export default function Game() {
           })}
 
         <motion.div
-          className="playerInGame currentPlayer"
+          className="npc currentPlayer"
           style={{
             transform: `translate(${translateXPlayer}px,${translateYPlayer}px)`,
           }}
