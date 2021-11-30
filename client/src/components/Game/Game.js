@@ -25,7 +25,7 @@ export default function Game() {
 
   const [moove, setMoove] = useState(false);
   const [checkForCoveringNpcs, setCheckForCoveringNpcs] = useState(false);
-  const [coveringNpcs, setCoveringNpcs] = useState(0);
+  const [coveringNpcs, setCoveringNpcs] = useState(false);
   const [translateXPlayer, setTranslateXPlayer] = useState(0);
   const [translateYPlayer, setTranslateYPlayer] = useState(0);
 
@@ -81,7 +81,7 @@ export default function Game() {
       return gameOver();
     }
     if (gameIsOn && timeRemaining > 0 && !greenLight && moove) {
-      setCoveringNpcs(0);
+
       setCheckForCoveringNpcs((prev) => !prev);
     }
   }, [greenLight, timeRemaining, moove, gameIsOn]);
@@ -184,26 +184,26 @@ export default function Game() {
     moveLeft &&
       checkIfCanMove("left") &&
       (() => {
-        setTranslateXPlayer((prev) => prev - 1);
+        setTranslateXPlayer((prev) => prev - 2);
         setMoove(true);
       })();
 
     moveRight &&
       checkIfCanMove("right") &&
       (() => {
-        setTranslateXPlayer((prev) => prev + 1);
+        setTranslateXPlayer((prev) => prev + 2);
         setMoove(true);
       })();
     moveUp &&
       checkIfCanMove("up") &&
       (() => {
-        setTranslateYPlayer((prev) => prev - 1);
+        setTranslateYPlayer((prev) => prev - 2);
         setMoove(true);
       })();
     moveDown &&
       checkIfCanMove("down") &&
       (() => {
-        setTranslateYPlayer((prev) => prev + 1);
+        setTranslateYPlayer((prev) => prev + 2);
         setMoove(true);
       })();
     setMoveLeft(false);
@@ -216,7 +216,6 @@ export default function Game() {
     playGreenLightSound();
     setMoove(false);
     setCheckForCoveringNpcs(false);
-    setCoveringNpcs(0);
     setGreenLight(true);
 
     setMessage("");
@@ -270,7 +269,7 @@ export default function Game() {
       Math.abs(playerBounderies.left - npcBounderies.left) <
       npcBounderies.width / 5
     ) {
-      return setCoveringNpcs((prev) => prev + 1);
+      return setCoveringNpcs(true);
     }
   };
 
