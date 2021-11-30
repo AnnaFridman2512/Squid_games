@@ -5,7 +5,7 @@ import Nav from "../Nav/Nav.js";
 import HomePage from "../HomePage/HomePage.js";
 import Game from "../Game/Game.js";
 import Players from "../Players/Players.js";
-import { PlayersContext } from "../Player/PlayersContext.js";
+import { PlayersContext } from "../Players/PlayersContext.js";
 
 function App() {
   const { getPlayers } = useContext(PlayersContext);

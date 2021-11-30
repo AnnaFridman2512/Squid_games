@@ -1,17 +1,26 @@
 import React, { useState, useCallback } from "react";
 
 export const PlayersContext = React.createContext({
+  changeTime: 5000,
+  setChangeTime: () => [],
+  totalTime: 60000,
+  setTotalTime: ()=> [],
+  greenLightInterval: ()=> [],
+  timeRemainingInterval: ()=> [],
+  gameOverInterval: ()=> [],
   playerNum: 0,
   setPlayerNum: () => [],
   players: [],
   setPlayers: () => [],
   getPlayers: () => [],
-  choosePlayer: () => [],
+
 });
 
 export default function PlayersProvider({ children }) {
   const [playerNum, setPlayerNum] = useState(0);
   const [players, setPlayers] = useState([]);
+
+
 
   const getPlayers = useCallback(() => {
     fetch("/api/players")
@@ -27,6 +36,7 @@ export default function PlayersProvider({ children }) {
     setPlayerNum(number);
   };
 
+
   return (
     <PlayersContext.Provider
       value={{
@@ -36,6 +46,7 @@ export default function PlayersProvider({ children }) {
         setPlayers,
         getPlayers,
         choosePlayer,
+
       }}
     >
       {children}

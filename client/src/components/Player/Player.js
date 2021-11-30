@@ -1,6 +1,6 @@
 import "./Player.css";
 import { useContext } from "react";
-import { PlayersContext } from "./PlayersContext.js";
+import { PlayersContext } from "../Players/PlayersContext.js";
 
 export default function Player({ _id, number, image }) {
   const { choosePlayer } = useContext(PlayersContext);

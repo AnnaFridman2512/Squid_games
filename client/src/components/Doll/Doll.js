@@ -113,7 +113,6 @@ function Model({ ...props }) {
 }
 
 export default function Doll({ greenLight }) {
-  const [redLight, setRedLight] = useState(false);
 
   const style = {
 
@@ -129,7 +128,7 @@ export default function Doll({ greenLight }) {
   };
 
   return (
-    <div class="doll">
+    <div className="doll">
       <Canvas style={style}>
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
