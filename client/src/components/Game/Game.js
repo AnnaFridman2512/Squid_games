@@ -1,6 +1,6 @@
 import "./Game.css";
 import soundEffect from "./soundEffect.mp3";
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef, useCallback } from "react";
 import { PlayersContext } from "../Players/PlayersContext.js";
 import { motion } from "framer-motion";
 import Doll from "./../Doll/Doll";
@@ -28,10 +28,7 @@ export default function Game() {
   const [coveringNpcs, setCoveringNpcs] = useState(false);
   const [translateXPlayer, setTranslateXPlayer] = useState(0);
   const [translateYPlayer, setTranslateYPlayer] = useState(0);
-
   const [gameIsOn, setGameIsOn] = useState(false);
-  const [resetPosition, setResetPosition] = useState(false);
-
   const [greenLight, setGreenLight] = useState(true);
 
 
@@ -70,10 +67,18 @@ export default function Game() {
   }, [translateYPlayer]);
 
   //RESET POSITION
-  useEffect(() => {
-    setTranslateXPlayer(0);
-    setTranslateYPlayer(0);
-  }, [resetPosition]);
+  // useEffect(() => {
+  //   setTranslateXPlayer(0);
+  //   setTranslateYPlayer(0);
+  // }, [resetPosition]);
+
+  const resetPosition = useCallback(
+    () => {
+      setTranslateXPlayer(0);
+      setTranslateYPlayer(0);
+    },
+    [translateXPlayer, translateYPlayer],
+  );
 
   //CEHCK FOR GAMEOVER
   useEffect(() => {
@@ -81,7 +86,7 @@ export default function Game() {
       return gameOver();
     }
     if (gameIsOn && timeRemaining > 0 && !greenLight && moove) {
-
+      setCoveringNpcs(false);
       setCheckForCoveringNpcs((prev) => !prev);
     }
   }, [greenLight, timeRemaining, moove, gameIsOn]);
@@ -108,8 +113,8 @@ export default function Game() {
 
   //HANDLE COVERING NPCS
   useEffect(() => {
-    if (coveringNpcs > 0) clearInterval(gameOverInterval);
-    if (gameIsOn && moove && !greenLight && coveringNpcs === 0) {
+    if (coveringNpcs) clearInterval(gameOverInterval);
+    if (gameIsOn && moove && !greenLight && !coveringNpcs) {
       gameOverInterval = setInterval(gameOver, 166);
     }
   }, [coveringNpcs, gameIsOn, moove, greenLight]);
@@ -184,26 +189,26 @@ export default function Game() {
     moveLeft &&
       checkIfCanMove("left") &&
       (() => {
-        setTranslateXPlayer((prev) => prev - 2);
+        setTranslateXPlayer((prev) => prev - 1);
         setMoove(true);
       })();
 
     moveRight &&
       checkIfCanMove("right") &&
       (() => {
-        setTranslateXPlayer((prev) => prev + 2);
+        setTranslateXPlayer((prev) => prev + 1);
         setMoove(true);
       })();
     moveUp &&
       checkIfCanMove("up") &&
       (() => {
-        setTranslateYPlayer((prev) => prev - 2);
+        setTranslateYPlayer((prev) => prev - 1);
         setMoove(true);
       })();
     moveDown &&
       checkIfCanMove("down") &&
       (() => {
-        setTranslateYPlayer((prev) => prev + 2);
+        setTranslateYPlayer((prev) => prev + 1);
         setMoove(true);
       })();
     setMoveLeft(false);
@@ -216,10 +221,10 @@ export default function Game() {
     playGreenLightSound();
     setMoove(false);
     setCheckForCoveringNpcs(false);
+    setCoveringNpcs(0);
     setGreenLight(true);
 
     setMessage("");
-    setResetPosition((prev) => !prev);
     setGameIsOn(true);
     startGreenLightRedLight();
     startTimer();
@@ -269,7 +274,7 @@ export default function Game() {
       Math.abs(playerBounderies.left - npcBounderies.left) <
       npcBounderies.width / 5
     ) {
-      return setCoveringNpcs(true);
+      return setCoveringNpcs((prev) => prev + 1);
     }
   };
 
@@ -281,6 +286,7 @@ export default function Game() {
     clearInterval(greenLightInterval);
     setTimeRemaining(0);
     setMessage("💀 GAME OVER");
+    resetPosition();
   };
 
   return (
@@ -307,7 +313,6 @@ export default function Game() {
                 reportNpcBoundries={reportNpcBoundries}
                 checkHide={checkHide}
                 checkForCoveringNpcs={checkForCoveringNpcs}
-                killNpc={killNpc}
                 greenLight={greenLight}
                 key={player._id}
                 number={player.number}

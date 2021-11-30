@@ -1,4 +1,5 @@
 import "./Game.css";
+import "./Npc.css";
 import {  motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -9,9 +10,7 @@ export default function Npc({
   greenLight,
   reportNpcBoundries,
   checkHide,
-  killNpc,
   checkForCoveringNpcs,
-  //resetPosition,
   //image,
 }) {
   const controls = useAnimation();
@@ -32,6 +31,7 @@ export default function Npc({
 
   useEffect(() => {
     if (!playing || !gameIsOn){
+
       return;
     } else if(greenLight){
         let npcX = setInterval(() => {
@@ -63,7 +63,7 @@ export default function Npc({
             duration: 15,
           },
         }));
-        killNpc(number);
+
         setPlaying(false);
         setTimeout(() => {
           controls.stop();
@@ -78,9 +78,7 @@ export default function Npc({
       ref={npcRef}
       className="npc"
       animate={controls}
-      style={{
-        left: `${index * 14}%`,
-      }}
+      style={{left: `${index * 14}%`}}
     >
       {number}
     </motion.div>

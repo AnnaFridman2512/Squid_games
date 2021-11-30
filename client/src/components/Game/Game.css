@@ -38,25 +38,7 @@
   width: 20%;
   align-self: flex-end;
 }
-.npc {
-  width: 40px;
-  height: 35px;
-  position: absolute;
-  top: calc(100% - 39px);
-  background-color: rgba(10, 100, 107);
-  color: white;
-  cursor: pointer;
-  line-height: 3;
-  box-sizing: border-box;
-}
 
-.currentPlayer {
-  transform: translateX(-50%);
-  transform-style: preserve-3d;
-
-  left: 50%;
-  border: solid 2px red;
-}
 
 .eye {
   position: relative;
