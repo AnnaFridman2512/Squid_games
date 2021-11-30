@@ -26,7 +26,8 @@
   width: 80vw;
   left: 10%;
   top: -10%;
-  height: calc(100vh - 70px);
+  height: 100vh;
+  display: flex;
   background-image: url("../../images/field.jpg");
   background-repeat: no-repeat;
   background-position: center;

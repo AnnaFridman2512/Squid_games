@@ -78,8 +78,10 @@ export default function Npc({
       ref={npcRef}
       className="npc"
       animate={controls}
-      style={{left: `${index * 14}%`}}
+      style={{left: `${(index+0.7)* 15.7}%`}}
+      
     >
+
       {number}
     </motion.div>
   );
