@@ -23,7 +23,7 @@ export default function Npc({
   let newRight = Math.floor(Math.random() * maxWidth);
   let newLeft = Math.floor(Math.random() *-maxWidth);
   let newTop = Math.floor(Math.random() * -maxHeight*2);
-
+  let npcX = () => reportNpcBoundries(npcRef?.current?.getBoundingClientRect(), index);
 
   useEffect(() => {
     checkHide(npcRef?.current?.getBoundingClientRect());
@@ -34,11 +34,11 @@ export default function Npc({
 
       return;
     } else if(greenLight){
-        let npcX = setInterval(() => {
-          reportNpcBoundries(npcRef?.current?.getBoundingClientRect(), index);
+         setInterval(() => {
+           npcX()
         }, 100);
 
-        if(npcX * 60 < maxWidth){
+        if(npcX() * 60 < maxWidth){
           controls.start(() => ({
             x: newRight,
             y: newTop,
@@ -78,8 +78,7 @@ export default function Npc({
       ref={npcRef}
       className="npc"
       animate={controls}
-      style={{left: `${(index+0.7)* 15.7}%`}}
-      
+      style={{left: `${(index+0.7)* 15.7}%`}}    
     >
 
       {number}
