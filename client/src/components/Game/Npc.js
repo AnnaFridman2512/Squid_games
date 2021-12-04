@@ -34,7 +34,9 @@ export default function Npc({
 
       return;
     } else if(greenLight){
-         setInterval(() => npcX(), 100);
+         setInterval(() => {
+           npcX()
+        }, 100);
 
         if(npcX() * 60 < maxWidth){
           controls.start(() => ({

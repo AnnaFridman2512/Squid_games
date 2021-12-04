@@ -67,7 +67,13 @@ export default function Game() {
   }, [translateYPlayer]);
 
   //RESET POSITION
-  const resetPosition = useCallback(() => {
+  // useEffect(() => {
+  //   setTranslateXPlayer(0);
+  //   setTranslateYPlayer(0);
+  // }, [resetPosition]);
+
+  const resetPosition = useCallback(
+    () => {
       setTranslateXPlayer(0);
       setTranslateYPlayer(0);
     },
@@ -247,6 +253,10 @@ export default function Game() {
     }, CHANGE_TIME);
   };
 
+  //NPC FUNCATIONALLITY
+  const killNpc = (npcNumber) => {};
+
+  //
   const reportNpcBoundries = (npcBounderies, npcIndex) => {
     if (!npcBounderies) return;
     setNpcBoundriesArray((prev) =>
