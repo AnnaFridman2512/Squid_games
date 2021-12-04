@@ -1,7 +1,7 @@
 import "./Player.css";
 import { useContext } from "react";
 import { PlayersContext } from "../Players/PlayersContext.js";
-
+import { Link } from "react-router-dom";
 export default function Player({ _id, number, image }) {
   const { choosePlayer } = useContext(PlayersContext);
 
@@ -16,7 +16,9 @@ export default function Player({ _id, number, image }) {
         <p className="player-number">Player {number}</p>
         {
           <button onClick={() => choosePlayer(number)}>
+            <Link className="span-link" to="game">
             <span>Choose</span>
+            </Link>
           </button>
         }
       </div>
