@@ -218,7 +218,6 @@ export default function Game() {
     setCheckForCoveringNpcs(false);
     setCoveringNpcs(0);
     setGreenLight(true);
-
     setMessage("");
     setGameIsOn(true);
     startGreenLightRedLight();
@@ -287,9 +286,7 @@ export default function Game() {
     >
       <div className="game-top">
         <div className="timer">{message || timeRemaining}</div>
-        <button id="startGame" onClick={startGame}>
-          START GAME
-        </button>
+        {playerNum !== "you" ? <button id="startGame" onClick={startGame}>  START GAME</button> : null}
       </div>
 
       <Doll greenLight={greenLight} />
@@ -320,12 +317,14 @@ export default function Game() {
           className="npc currentPlayer"
           style={{
             transform: `translate(${translateXPlayer}px,${translateYPlayer}px)`,
-            boxShadow: `none`
           }}
-          animate={{boxShadow: `0px 5px 22px 5px #FFFFFF`}}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ ease: "linear", duration: 0.8, repeat: Infinity}}
+          exit={{ opacity: 1 }}
           ref={playerRef}
           key={playerNum}
-          onClick={startGame}
+
         >
           {playerNum}
         </motion.div>
