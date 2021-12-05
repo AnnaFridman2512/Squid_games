@@ -17,7 +17,7 @@ export const PlayersContext = React.createContext({
 });
 
 export default function PlayersProvider({ children }) {
-  const [playerNum, setPlayerNum] = useState(0);
+  const [playerNum, setPlayerNum] = useState("you");
   const [players, setPlayers] = useState([]);
 
 

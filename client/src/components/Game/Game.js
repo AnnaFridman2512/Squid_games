@@ -1,6 +1,7 @@
 import "./Game.css";
 import soundEffect from "./soundEffect.mp3";
 import React, { useContext, useEffect, useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { PlayersContext } from "../Players/PlayersContext.js";
 import { motion } from "framer-motion";
 import Doll from "./../Doll/Doll";
@@ -67,13 +68,7 @@ export default function Game() {
   }, [translateYPlayer]);
 
   //RESET POSITION
-  // useEffect(() => {
-  //   setTranslateXPlayer(0);
-  //   setTranslateYPlayer(0);
-  // }, [resetPosition]);
-
-  const resetPosition = useCallback(
-    () => {
+  const resetPosition = useCallback(() => {
       setTranslateXPlayer(0);
       setTranslateYPlayer(0);
     },
@@ -253,10 +248,6 @@ export default function Game() {
     }, CHANGE_TIME);
   };
 
-  //NPC FUNCATIONALLITY
-  const killNpc = (npcNumber) => {};
-
-  //
   const reportNpcBoundries = (npcBounderies, npcIndex) => {
     if (!npcBounderies) return;
     setNpcBoundriesArray((prev) =>
@@ -303,6 +294,9 @@ export default function Game() {
 
       <Doll greenLight={greenLight} />
       <div className="field">
+      <Link to="players">
+        {playerNum === "you" ? <div className="choosePlayerMSG">CHOOSE PLAYER</div> : null}
+      </Link>
         {players
           .filter((player) => player.number !== playerNum)
           .map((player, index) => {
@@ -326,7 +320,9 @@ export default function Game() {
           className="npc currentPlayer"
           style={{
             transform: `translate(${translateXPlayer}px,${translateYPlayer}px)`,
+            boxShadow: `none`
           }}
+          animate={{boxShadow: `0px 5px 22px 5px #FFFFFF`}}
           ref={playerRef}
           key={playerNum}
           onClick={startGame}
