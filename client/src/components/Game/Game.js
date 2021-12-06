@@ -110,7 +110,7 @@ export default function Game() {
   useEffect(() => {
     if (coveringNpcs) clearInterval(gameOverInterval);
     if (gameIsOn && moove && !greenLight && !coveringNpcs) {
-      gameOverInterval = setInterval(gameOver, 166);
+      gameOverInterval = setInterval(gameOver, 100);
     }
   }, [coveringNpcs, gameIsOn, moove, greenLight]);
 
@@ -184,26 +184,26 @@ export default function Game() {
     moveLeft &&
       checkIfCanMove("left") &&
       (() => {
-        setTranslateXPlayer((prev) => prev - 1);
+        setTranslateXPlayer((prev) => prev - 2);
         setMoove(true);
       })();
 
     moveRight &&
       checkIfCanMove("right") &&
       (() => {
-        setTranslateXPlayer((prev) => prev + 1);
+        setTranslateXPlayer((prev) => prev + 2);
         setMoove(true);
       })();
     moveUp &&
       checkIfCanMove("up") &&
       (() => {
-        setTranslateYPlayer((prev) => prev - 1);
+        setTranslateYPlayer((prev) => prev - 2);
         setMoove(true);
       })();
     moveDown &&
       checkIfCanMove("down") &&
       (() => {
-        setTranslateYPlayer((prev) => prev + 1);
+        setTranslateYPlayer((prev) => prev + 2);
         setMoove(true);
       })();
     setMoveLeft(false);
@@ -270,6 +270,7 @@ export default function Game() {
 
   //GAME OVER
   const gameOver = () => {
+    pauseAudio();
     setMoove(false);
     setGameIsOn(false);
     clearInterval(timeRemainingInterval);

@@ -38,13 +38,13 @@ export default function Npc({
            npcX()
         }, 100);
 
-        if(npcX() * 60 < maxWidth){
+        if(npcX() * 60 < maxWidth && npcX() > npcWidth ){
           controls.start(() => ({
             x: newRight,
             y: newTop,
             transition: {duration: 20}
           }));  
-        }else{
+        }else {
           controls.start(() => ({
            x: newLeft,
            y: newTop,
