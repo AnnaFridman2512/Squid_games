@@ -280,7 +280,7 @@ export default function Game() {
 
   //GAME OVER
   const gameOver = () => {
-    setInterval(()=> pauseAudio(), 100);
+    pauseAudio();
     setMoove(false);
     setGameIsOn(false);
     clearInterval(timeRemainingInterval);
@@ -330,13 +330,12 @@ export default function Game() {
           style={{
             transform: `translate(${translateXPlayer}px,${translateYPlayer}px)`,
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0.5 }}
+          animate={gameIsOn ? { opacity: 1 } : "initial"}
           transition={{ ease: "linear", duration: 0.8, repeat: Infinity}}
           exit={{ opacity: 1 }}
           ref={playerRef}
           key={playerNum}
-
         >
           {playerNum}
         </motion.div>
