@@ -31,7 +31,7 @@ export default function Game() {
   const [translateYPlayer, setTranslateYPlayer] = useState(0);
   const [gameIsOn, setGameIsOn] = useState(false);
   const [greenLight, setGreenLight] = useState(true);
-
+  const [showStartGameBTN, setShowStartGameBTN] = useState(false);
 
 
   //MOVEMENT
@@ -297,11 +297,13 @@ export default function Game() {
     >
       <div className="game-top">
         <div className="timer">{message || timeRemaining}</div>
-        {playerNum !== "you" ? <button id="startGame" onClick={startGame}>  START GAME</button> : null}
       </div>
 
       <Doll greenLight={greenLight} />
       <div className="field">
+
+      {playerNum !== "you" && !gameIsOn  ? <button id="startGame" onClick={startGame}>  START GAME</button> : null}
+
       <Link to="players">
         {playerNum === "you" ? <div className="choosePlayerMSG">CHOOSE PLAYER</div> : null}
       </Link>

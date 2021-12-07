@@ -55,8 +55,17 @@
 }
 
 #startGame {
-  width: 20%;
-  align-self: flex-end;
+  margin: 0 auto;
+  width: 50%;
+  height: 20%;;
+  position: relative;
+  top: 50%;
+  color: white;
+  font-size: 50px;
+}
+
+#startGame:hover{
+  background-color: rgba(10, 100, 107, 0.5);
 }
 
 

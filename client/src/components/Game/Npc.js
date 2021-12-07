@@ -50,9 +50,8 @@ export default function Npc({
           })
           );  
         }else {
-
           controls.start(() => ({
-           x: newLeft,
+           x: newLeft/1.5,
            y: newTop,
            transition: {duration: 20}
         }));  
