@@ -31,7 +31,7 @@ export default function Game() {
   const [translateYPlayer, setTranslateYPlayer] = useState(0);
   const [gameIsOn, setGameIsOn] = useState(false);
   const [greenLight, setGreenLight] = useState(true);
-  const [showStartGameBTN, setShowStartGameBTN] = useState(false);
+  const [dontShowStartGameBTN, setDontShowStartGameBTN] = useState(true);
 
 
   //MOVEMENT
@@ -70,6 +70,7 @@ export default function Game() {
       clearInterval(timeRemainingInterval);
       clearInterval(greenLightInterval);
       setTimeRemaining(0);
+      setDontShowStartGameBTN(false)
     }
   }, [translateYPlayer]);
 
@@ -280,6 +281,7 @@ export default function Game() {
 
   //GAME OVER
   const gameOver = () => {
+    setDontShowStartGameBTN(true);
     pauseAudio();
     setMoove(false);
     setGameIsOn(false);
@@ -302,7 +304,7 @@ export default function Game() {
       <Doll greenLight={greenLight} />
       <div className="field">
 
-      {playerNum !== "you" && !gameIsOn  ? <button id="startGame" onClick={startGame}>  START GAME</button> : null}
+      {playerNum !== "you" && !gameIsOn && dontShowStartGameBTN ? <button id="startGame" onClick={startGame}>  START GAME</button> : null}
 
       <Link to="players">
         {playerNum === "you" ? <div className="choosePlayerMSG">CHOOSE PLAYER</div> : null}
