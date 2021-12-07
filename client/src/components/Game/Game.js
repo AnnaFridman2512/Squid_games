@@ -73,16 +73,7 @@ export default function Game() {
     }
   }, [translateYPlayer]);
 
-  // const gameOver = () => {
-  //   setInterval(()=> pauseAudio(), 100);
-  //   setMoove(false);
-  //   setGameIsOn(false);
-  //   clearInterval(timeRemainingInterval);
-  //   clearInterval(greenLightInterval);
-  //   setTimeRemaining(0);
-  //   setMessage("💀 GAME OVER");
-  //   resetPosition();
-  // };
+
 
 
   //RESET POSITION
@@ -90,7 +81,7 @@ export default function Game() {
       setTranslateXPlayer(0);
       setTranslateYPlayer(0);
     },
-    [translateXPlayer, translateYPlayer],
+    [],
   );
 
   //CEHCK FOR GAMEOVER

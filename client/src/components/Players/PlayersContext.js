@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback } from "react";
 
 export const PlayersContext = React.createContext({
   changeTime: 5000,

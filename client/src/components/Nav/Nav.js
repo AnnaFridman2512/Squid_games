@@ -11,14 +11,7 @@ export default function Nav() {
           </Link>
         </div>
       </div>
-      <div className="links">
-        <Link to="players">
-          <span>Choose player</span>
-        </Link>
-        <Link to="game">
-          <span>Play</span>
-        </Link>
-      </div>
+
     </nav>
   );
 }

@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     getPlayers();
-  }, []);
+  });
 
   return (
     <div className="App">

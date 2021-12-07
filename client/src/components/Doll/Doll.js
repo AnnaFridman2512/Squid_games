@@ -116,7 +116,7 @@ export default function Doll({ greenLight }) {
 
   const style = {
 
-    width: "80%",
+    width: "78%",
     height: "20vh",
     display: "flex",
     justifyContent: "center",
