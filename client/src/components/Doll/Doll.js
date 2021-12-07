@@ -18,7 +18,7 @@ function Model({ ...props }) {
     const totalFrames = 20;
 
     const interval = setInterval(() => {
-      if (frameCounter >= totalFrames) clearInterval(interval);
+      if (frameCounter >= totalFrames ) clearInterval(interval);
       setRotationArray([
         Math.PI / 3,
         !props.greenLight

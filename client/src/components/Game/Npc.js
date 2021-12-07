@@ -8,10 +8,11 @@ export default function Npc({
   number,
   gameIsOn,
   greenLight,
-  reportNpcBoundries,
+  // reportNpcBoundries,
   checkHide,
   checkForCoveringNpcs,
   //image,
+  message
 }) {
   const controls = useAnimation();
   const npcRef = useRef(null);
@@ -23,28 +24,33 @@ export default function Npc({
   let newRight = Math.floor(Math.random() * maxWidth);
   let newLeft = Math.floor(Math.random() *-maxWidth);
   let newTop = Math.floor(Math.random() * -maxHeight*2);
-  let npcX = () => reportNpcBoundries(npcRef?.current?.getBoundingClientRect(), index);
+  let npcX = () => npcRef?.current?.getBoundingClientRect().x;
+
+  // useEffect(() => {
+  //   setInterval(() => {    
+  //     npcX()
+  //   }, 100);
+  // }, []);
 
   useEffect(() => {
     checkHide(npcRef?.current?.getBoundingClientRect());
   }, [checkForCoveringNpcs, checkHide]);
 
   useEffect(() => {
-    if (!playing || !gameIsOn){
-
+    if (!playing || !gameIsOn ){
       return;
     } else if(greenLight){
-         setInterval(() => {
-           npcX()
-        }, 100);
+        
+        if(npcX() * 60 < maxWidth - npcWidth){
 
-        if(npcX() * 60 < maxWidth && npcX() > npcWidth ){
           controls.start(() => ({
             x: newRight,
             y: newTop,
             transition: {duration: 20}
-          }));  
+          })
+          );  
         }else {
+
           controls.start(() => ({
            x: newLeft,
            y: newTop,
@@ -53,7 +59,7 @@ export default function Npc({
        }
 
     }else{//If !greenLight stop random npcs
-      if (Math.random() > 0.25) {
+      if (Math.random() > 0.25 || message === "🏆 WIN") {
         controls.stop();
       } else {
         controls.start(() => ({

@@ -33,6 +33,7 @@ export default function Game() {
   const [greenLight, setGreenLight] = useState(true);
 
 
+
   //MOVEMENT
   const [moveLeft, setMoveLeft] = useState(false);
   const [moveRight, setMoveRight] = useState(false);
@@ -61,11 +62,28 @@ export default function Game() {
 
   //CHECK WIN
   useEffect(() => {
-    if (translateYPlayer <= -(window.innerHeight * 0.93 - 150)) {
+    if (translateYPlayer <= -(window.innerHeight*0.9)) {
+      pauseAudio()
+      setGreenLight(false);
       setMessage("🏆 WIN");
       setGameIsOn(false);
+      clearInterval(timeRemainingInterval);
+      clearInterval(greenLightInterval);
+      setTimeRemaining(0);
     }
   }, [translateYPlayer]);
+
+  // const gameOver = () => {
+  //   setInterval(()=> pauseAudio(), 100);
+  //   setMoove(false);
+  //   setGameIsOn(false);
+  //   clearInterval(timeRemainingInterval);
+  //   clearInterval(greenLightInterval);
+  //   setTimeRemaining(0);
+  //   setMessage("💀 GAME OVER");
+  //   resetPosition();
+  // };
+
 
   //RESET POSITION
   const resetPosition = useCallback(() => {
@@ -110,7 +128,8 @@ export default function Game() {
   useEffect(() => {
     if (coveringNpcs) clearInterval(gameOverInterval);
     if (gameIsOn && moove && !greenLight && !coveringNpcs) {
-      gameOverInterval = setInterval(gameOver, 100);
+      //gameOverInterval = setInterval(gameOver, 100);
+      gameOver()
     }
   }, [coveringNpcs, gameIsOn, moove, greenLight]);
 
@@ -270,7 +289,7 @@ export default function Game() {
 
   //GAME OVER
   const gameOver = () => {
-    pauseAudio();
+    setInterval(()=> pauseAudio(), 100);
     setMoove(false);
     setGameIsOn(false);
     clearInterval(timeRemainingInterval);
@@ -310,6 +329,7 @@ export default function Game() {
                 number={player.number}
                 image={player.image}
                 resetPosition={resetPosition}
+
               />
             );
           })}

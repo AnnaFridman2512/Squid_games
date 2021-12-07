@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 
 export const PlayersContext = React.createContext({
   changeTime: 5000,
@@ -19,7 +19,7 @@ export const PlayersContext = React.createContext({
 export default function PlayersProvider({ children }) {
   const [playerNum, setPlayerNum] = useState("you");
   const [players, setPlayers] = useState([]);
-
+  const [isMounted, setIsmounted] = useState(true);
 
 
   const getPlayers = useCallback(() => {
@@ -28,8 +28,13 @@ export default function PlayersProvider({ children }) {
         return res.json();
       })
       .then((data) => {
+       if(isMounted){
         setPlayers(data);
-      });
+       } 
+      })
+      return (() => { //Fixing memory leak 
+        setIsmounted(false);
+      } )
   }, []);
 
   const choosePlayer = (number) => {
