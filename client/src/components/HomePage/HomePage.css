@@ -5,10 +5,29 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
+.loader-wrapper{
+    padding-top: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+.loader-wrapper:hover{
+ background-color:rgba(188, 55, 86,0.5); ;
+}
 .span-link{
+    margin: auto;
     color: white;
     text-decoration: none;
- 
+
+    font-size: 10vh;
+}
+
+span{
+    font-size: 50;
 }

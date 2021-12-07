@@ -1,15 +1,18 @@
 import './HomePage.css';
 import { Link } from "react-router-dom";
-import Loader from '../../Loader';
+import Loader from '../Loader.js';
 
 export default function HomePage(){
 
     return (
         <div className="home-page">
-        <Link className="span-link" to="game">
-          <span>Play</span>
-        </Link>
-        <Loader />
+         <div className="loader-wrapper">
+            <Link className="span-link" to="game">
+                <Loader />
+                <span>Play</span>
+            </Link>
+        </div>
+
         </div>
     )
 
